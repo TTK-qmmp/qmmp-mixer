@@ -1,4 +1,4 @@
-This is a plugin for Qmmp (1.4.0 or greater) which supports channel mixer effect.
+This is a plugin for Qmmp (1.6.0 or greater) which supports channel mixer effect.
 
 The following packages are required, including development headers,
 which some vendors split into separate packages:
