@@ -17,7 +17,7 @@ To install:
 
 $ make install
 
-This installs the plugin into Qmmp's input plugin directory.  To install
+This installs the plugin into Qmmp's effect plugin directory.  To install
 to a staging area, such as for packaging:
 
 $ make install INSTALL_ROOT=/path/to/staging
