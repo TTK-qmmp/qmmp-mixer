@@ -15,7 +15,11 @@ SettingsDialog::SettingsDialog(QWidget *parent)
         button->setFocusPolicy(Qt::NoFocus);
     }
 #endif
+#if QT_VERSION >= QT_VERSION_CHECK(6,0,0)
+    QSettings settings;
+#else
     QSettings settings(Qmmp::configFile(), QSettings::IniFormat);
+#endif
     m_ui.type->addItems(QStringList() << tr("NullMix") <<tr("MonoToStereo") << tr("StereoToMono"));
     m_ui.type->setCurrentIndex(settings.value("ChannelMixer/type", MixerPlugin::Null).toInt());
 }
@@ -23,7 +27,11 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 void SettingsDialog::accept()
 {
     const int index = m_ui.type->currentIndex();
+#if QT_VERSION >= QT_VERSION_CHECK(6,0,0)
+    QSettings settings;
+#else
     QSettings settings(Qmmp::configFile(), QSettings::IniFormat);
+#endif
     settings.setValue("ChannelMixer/type", index);
 
     if(MixerPlugin::instance())
