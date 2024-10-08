@@ -19,6 +19,7 @@
 #ifndef EFFECTMIXERFACTORY_H
 #define EFFECTMIXERFACTORY_H
 
+#include <qmmp/qmmp.h>
 #include <qmmp/effectfactory.h>
 
 /*!
@@ -30,9 +31,17 @@ class EffectMixerFactory : public QObject, public EffectFactory
     Q_PLUGIN_METADATA(IID "org.qmmp.qmmp.EffectFactoryInterface.1.0")
     Q_INTERFACES(EffectFactory)
 public:
+#if (QMMP_VERSION_INT < 0x10700) || (0x20000 <= QMMP_VERSION_INT && QMMP_VERSION_INT < 0x20200)
     virtual const EffectProperties properties() const override final;
+#else
+    virtual EffectProperties properties() const override final;
+#endif
     virtual Effect *create() override final;
+#if (QMMP_VERSION_INT < 0x10700) || (0x20000 <= QMMP_VERSION_INT && QMMP_VERSION_INT < 0x20200)
     virtual void showSettings(QWidget *parent) override final;
+#else
+    virtual QDialog *createSettings(QWidget *parent) override final;
+#endif
     virtual void showAbout(QWidget *parent) override final;
     virtual QString translation() const override final;
 

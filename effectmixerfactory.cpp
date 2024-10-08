@@ -4,7 +4,11 @@
 
 #include <QMessageBox>
 
+#if (QMMP_VERSION_INT < 0x10700) || (0x20000 <= QMMP_VERSION_INT && QMMP_VERSION_INT < 0x20200)
 const EffectProperties EffectMixerFactory::properties() const
+#else
+EffectProperties EffectMixerFactory::properties() const
+#endif
 {
     EffectProperties properties;
     properties.name = tr("Channel Mixer Plugin");
@@ -19,10 +23,17 @@ Effect *EffectMixerFactory::create()
     return new MixerPlugin();
 }
 
+#if (QMMP_VERSION_INT < 0x10700) || (0x20000 <= QMMP_VERSION_INT && QMMP_VERSION_INT < 0x20200)
 void EffectMixerFactory::showSettings(QWidget *parent)
 {
     (new SettingsDialog(parent))->show();
 }
+#else
+QDialog *EffectMixerFactory::createSettings(QWidget *parent)
+{
+    return new SettingsDialog(parent);
+}
+#endif
 
 void EffectMixerFactory::showAbout(QWidget *parent)
 {
